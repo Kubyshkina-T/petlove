@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="icon-heart" viewBox="0 0 24 24">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24">
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-burger-menu" viewBox="0 0 36 36">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4.5 18h27m-27-9h27m-27 18h27"/></g>
+  </symbol>
+  <symbol id="icon-button-close" viewBox="0 0 36 36">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M27 9 9 27M9 9l18 18"/></g>
+  </symbol>
+  <symbol id="icon-eye-off" viewBox="0 0 22 22">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#icon-eye-off-a)"><path d="M16.445 16.445A9.23 9.23 0 0 1 11 18.333C4.584 18.333.917 11 .917 11a16.9 16.9 0 0 1 4.638-5.445m3.52-1.668A8.4 8.4 0 0 1 11 3.667C17.417 3.667 21.084 11 21.084 11a17 17 0 0 1-1.98 2.924m-6.16-.98a2.75 2.75 0 1 1-3.887-3.887M.917.917l20.167 20.166"/></g><defs><clipPath id="icon-eye-off-a"><path fill="currentColor" d="M0 0h22v22H0z"/></clipPath></defs></g>
+  </symbol>
+  <symbol id="icon-female" viewBox="0 0 24 24">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10m0 0v8m-3-3h6"/></g>
+  </symbol>
+  <symbol id="icon-healthicons-sexual-reproductive-health" viewBox="0 0 24 24">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.77 7.745a3.499 3.499 0 1 0 2.186 2.726.502.502 0 0 1 .613-.562.5.5 0 0 1 .375.41 4.498 4.498 0 1 1-2.81-3.506.5.5 0 1 1-.363.932" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M6.998 19.5v-3.998a.5.5 0 0 1 1 0V19.5a.5.5 0 1 1-1 0" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M5.498 17.001a.5.5 0 0 1 .5-.5h2.999a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.499-.5m8.947-9.364a3.498 3.498 0 0 0-4.424 3.779.5.5 0 1 1-.993.118 4.498 4.498 0 1 1 2.686 3.6.501.501 0 0 1 .013-.923.5.5 0 0 1 .383.005 3.5 3.5 0 1 0 2.335-6.58" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M16.39 8.608a.5.5 0 0 1 0-.707l3.749-3.748a.5.5 0 1 1 .707.707l-3.749 3.748a.5.5 0 0 1-.707 0" clip-rule="evenodd"/><path fill="currentColor" fill-rule="evenodd" d="M20.455 7.505A.5.5 0 0 1 19.962 7l.025-1.986L18 5.038a.5.5 0 1 1-.014-1L21 4l-.038 3.012a.5.5 0 0 1-.506.493" clip-rule="evenodd"/></g>
+  </symbol>
+  <symbol id="icon-lapa" viewBox="0 0 33 31">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path fill="currentColor" d="M11.688 0C10.216 0 8.935.836 8.12 1.977s-1.246 2.616-1.246 4.21c0 1.595.432 3.07 1.246 4.212s2.095 1.976 3.566 1.976c1.472 0 2.753-.836 3.567-1.977S16.5 7.783 16.5 6.188s-.432-3.07-1.246-4.212S13.16 0 11.688 0M16.5 6.188c0 1.595.432 3.07 1.246 4.211s2.097 1.976 3.567 1.976 2.752-.836 3.566-1.977 1.246-2.615 1.246-4.21-.432-3.07-1.246-4.212S22.784 0 21.312 0c-1.47 0-2.752.836-3.566 1.977S16.5 4.593 16.5 6.187M11.688 2.75c.428 0 .901.215 1.333.817.426.6.729 1.558.729 2.62s-.303 2.022-.729 2.621c-.432.603-.905.817-1.334.817-.428 0-.901-.214-1.333-.817-.426-.6-.729-1.558-.729-2.62s.303-2.022.729-2.621c.432-.602.905-.817 1.334-.817m9.625 0c.428 0 .902.215 1.333.817.427.6.729 1.558.729 2.62s-.302 2.022-.729 2.621c-.431.603-.905.817-1.334.817-.428 0-.902-.214-1.333-.817-.427-.6-.729-1.558-.729-2.62s.302-2.022.729-2.621c.431-.602.905-.817 1.334-.817m-16.5 6.875c-1.472 0-2.753.836-3.567 1.977S0 14.217 0 15.812s.432 3.07 1.246 4.212S3.34 22 4.812 22s2.753-.836 3.567-1.977 1.246-2.616 1.246-4.21c0-1.596-.432-3.07-1.246-4.212S6.284 9.625 4.813 9.625m23.375 0c-1.472 0-2.753.836-3.567 1.977s-1.246 2.615-1.246 4.21.432 3.07 1.246 4.212S26.716 22 28.188 22c1.47 0 2.752-.836 3.566-1.977S33 17.407 33 15.813c0-1.596-.432-3.07-1.246-4.212s-2.095-1.976-3.567-1.976m-23.375 2.75c.429 0 .902.214 1.333.817.426.6.729 1.558.729 2.62s-.303 2.022-.729 2.621c-.431.602-.904.817-1.333.817-.43 0-.902-.215-1.334-.817-.426-.6-.729-1.558-.729-2.62s.303-2.022.729-2.621c.431-.603.904-.817 1.334-.817m23.375 0c.428 0 .902.214 1.333.817.427.6.729 1.558.729 2.62s-.302 2.022-.729 2.621c-.431.602-.905.817-1.334.817-.428 0-.902-.215-1.333-.817-.427-.6-.729-1.558-.729-2.62s.302-2.022.729-2.621c.431-.603.905-.817 1.334-.817M16.5 15.125c-1.833 0-3.112 1.19-3.74 2.234-.624 1.045-1.01 1.914-1.375 2.277-.21.216-1.537.715-2.92 1.42-.692.354-1.39.826-1.976 1.548a4.5 4.5 0 0 0-.99 2.836c0 2.64 2.172 4.813 4.812 4.813 1.19 0 2.434-.385 3.65-.729 1.223-.352 2.539-.649 2.539-.649s1.316.297 2.535.646c1.219.344 2.462.729 3.653.729 2.64 0 4.812-2.172 4.812-4.812a4.4 4.4 0 0 0-.99-2.792c-.584-.705-1.288-1.141-1.975-1.505-1.375-.73-2.726-1.307-2.921-1.505-.33-.325-.702-1.223-1.334-2.274-.631-1.054-1.937-2.237-3.78-2.237m0 2.75c.907 0 1.008.22 1.416.902.413.68.72 1.837 1.719 2.837 1.134 1.127 2.567 1.375 3.61 1.93.523.278.922.573 1.161.86.238.284.344.544.344 1.03a2.04 2.04 0 0 1-2.062 2.063c-.4 0-1.683-.302-2.88-.646-1.196-.34-2.186-.729-3.308-.729s-2.112.39-3.308.729c-1.197.344-2.48.646-2.88.646a2.04 2.04 0 0 1-2.062-2.062c0-.554.116-.839.344-1.12.228-.279.649-.555 1.16-.815 1.023-.522 2.448-.729 3.61-1.89 1.007-1.014 1.31-2.207 1.718-2.881.402-.674.498-.86 1.417-.86z"/></g>
+  </symbol>
+  <symbol id="icon-male" viewBox="0 0 24 24">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11a5 5 0 1 0 0 10 5 5 0 0 0 0-10m0 0V3M8 7l4-4 4 4"/></g>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 18 18">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.25 14.25a6 6 0 1 0 0-12 6 6 0 0 0 0 12m7.5 1.5-3.263-3.262"/></g>
+  </symbol>
+  <symbol id="icon-shape" viewBox="0 0 17 12">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.417.75 5.333 10.833.75 6.25"/></g>
+  </symbol>
+  <symbol id="icon-upload-cloud" viewBox="0 0 18 18">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M12 12 9 9l-3 3m3-3v6.75"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15.293 13.793A3.75 3.75 0 0 0 13.5 6.75h-.945a5.999 5.999 0 0 0-11.713.432 6 6 0 0 0 1.408 5.043"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M12 12 9 9l-3 3"/></g>
+  </symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15c-3.17 0-5.99 1.53-7.784 3.906-.386.511-.58.767-.573 1.112.005.267.172.604.382.769.272.213.649.213 1.402.213h13.146c.753 0 1.13 0 1.401-.213.21-.165.378-.502.383-.769.006-.345-.187-.6-.573-1.112C17.989 16.531 15.17 15 12 15m0-3a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9"/></g>
+  </symbol>
+  <symbol id="icon-calendar" viewBox="0 0 20 20">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.833 3.333H4.167C3.247 3.333 2.5 4.08 2.5 5v11.667c0 .92.746 1.666 1.667 1.666h11.666c.92 0 1.667-.746 1.667-1.666V5c0-.92-.746-1.667-1.667-1.667m-2.499-1.666V5M6.666 1.667V5M2.5 8.333h15"/></g>
+  </symbol>
+  <symbol id="icon-eye" viewBox="0 0 18 14">
+    <g xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.455 11.205A7.55 7.55 0 0 1 9 12.75c-5.25 0-8.25-6-8.25-6a13.8 13.8 0 0 1 3.795-4.455M7.425.93A6.8 6.8 0 0 1 9 .75c5.25 0 8.25 6 8.25 6a14 14 0 0 1-1.62 2.393m-5.04-.803a2.25 2.25 0 1 1-3.18-3.18"/></g>
+  </symbol>
+</svg>
