@@ -5,24 +5,18 @@ export default function SplashScreen() {
   return (
     <div className={css.wrapper}>
       <Image
-        src="/public/main.jpg"
+        src="/main.jpg"
         alt="Petlove main page"
         fill
         priority
         className={css.image}
       />
       <div className={css.logo}>
-        <span>petl</span>
-
-        <Image
-          src="/heart-icon.png"
-          alt=""
-          width={20}
-          height={20}
-          className={css.heart}
-        />
-
-        <span>ve</span>
+        petl
+        <svg className={css.heart} aria-hidden="true">
+          <use href="/icons/sprite.svg#icon-heart" />
+        </svg>
+        ve
       </div>
     </div>
   );

@@ -1,0 +1,16 @@
+.petImageWrapper {
+    position: relative;
+
+    width: 100%;
+    max-width: 335px;
+    height: 280px;
+
+    margin: 0 auto;
+    overflow: hidden;
+
+    border-radius: 30px;
+}
+
+.petImage {
+    object-fit: cover;
+}

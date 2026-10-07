@@ -1,0 +1,62 @@
+.wrapper {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    object-position: 75% center;
+}
+
+.logo {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    transform: translateX(-50%);
+
+    color: #ffffff;
+
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.heart {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: #f6b83d;
+}
+
+@media screen and (min-width: 768px) {
+    .image {
+        object-position: 63% center;
+    }
+
+    .logo {
+        top: 48%;
+        font-size: 100px;
+    }
+
+    .heart {
+        width: 82px;
+        height: 82px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .image {
+        object-position: center;
+    }
+
+}
