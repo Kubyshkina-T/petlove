@@ -1,0 +1,58 @@
+.authNav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 67px;
+    width: 178px;
+    height: 42px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login {
+    background-color: #f6b83d;
+    color: #fff;
+}
+
+.register {
+    background-color: #fff4df;
+    color: #f6b83d;
+}
+
+.login:hover,
+.login:focus-visible {
+    background-color: #e9a52a;
+}
+
+.register:hover,
+.register:focus-visible {
+    background-color: #f6b83d;
+    color: #fff;
+}
+@media screen and (min-width:768px) {
+    .authNav {
+        flex-direction: row;
+    }
+    .link{
+        font-size: 16px;
+        padding: 15px 35px;
+    }
+        .login{
+            width: 119px;
+            height: 50px;
+        }
+                .register{
+                    width:149px;
+                    height: 50px;
+                }
+}

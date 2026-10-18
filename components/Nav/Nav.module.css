@@ -1,0 +1,33 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+@media screen and (min-width: 1280px) {
+    .nav {
+        flex-direction: row;
+        gap: 8px;
+    }
+}
+.link {
+    padding: 15px 42px;
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height:1.8;
+    color: #262626;
+    text-decoration: none;
+    font-size: 14px;
+transition: background-color 0.3s ease;
+}
+.link:focus,
+.link:hover,
+    .link:focus-visible {
+        background-color: #f6b83d;
+    }
+.active {
+    border-color: #f6b83d;
+}
