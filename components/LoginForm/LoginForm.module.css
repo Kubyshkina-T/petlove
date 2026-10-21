@@ -6,76 +6,158 @@
 }
 
 .field {
-    position: relative;
+    width: 100%;
 }
-
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
 .input {
+    display: block;
     width: 100%;
     height: 52px;
-    padding: 0 48px 0 16px;
+    box-sizing: border-box;
+    padding: 0 84px 0 16px;
+
     border: 1px solid rgba(38, 38, 38, 0.15);
     border-radius: 30px;
     outline: none;
+
     background-color: #fff;
     color: #262626;
     font: inherit;
     font-size: 16px;
+
     transition: border-color 0.3s ease;
 }
 
 .input::placeholder {
     color: rgba(38, 38, 38, 0.5);
 }
-
 .input:hover,
 .input:focus {
     border-color: #f6b83d;
 }
 
-.input[aria-invalid="true"] {
+.input[aria-invalid="true"],
+.input[aria-invalid="true"]:hover,
+.input[aria-invalid="true"]:focus {
     border-color: #ef2447;
 }
-
-.eyeButton {
+.input.valid,
+.input.valid:hover,
+.input.valid:focus {
+    border-color: #08aa83;
+}
+.inputActions {
     position: absolute;
-    top: 26px;
+    top: 0;
+    right: 16px;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Error icon */
+
+.errorIcon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    color: #ef2447;
+    fill: none;
+    stroke: currentColor;
+    pointer-events: none;
+}
+
+.inputWrapper>.errorIcon {
+    position: absolute;
+    top: 50%;
     right: 16px;
     transform: translateY(-50%);
+}
+
+/* Success icon */
+
+.successIcon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+
+    color: #08aa83;
+    fill: none;
+    stroke: currentColor;
+    pointer-events: none;
+}
+
+/* Show/hide password */
+
+.eyeButton {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 22px;
     height: 22px;
     padding: 0;
-    border: 0;
+    border: none;
+
     background: transparent;
     color: #f6b83d;
     cursor: pointer;
 }
 
+.eyeButton:focus-visible {
+    outline: 2px solid #f6b83d;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 .eyeIcon {
+    display: block;
     width: 20px;
     height: 20px;
     fill: none;
     stroke: currentColor;
 }
 
-.error {
+/* Validation messages */
+
+.error,
+.success {
     margin: 4px 0 0 12px;
     font-size: 12px;
+    line-height: 14px;
+}
+
+.error {
     color: #ef2447;
 }
+
+.success {
+    color: #08aa83;
+}
+
+/* Submit button */
 
 .submitButton {
     width: 100%;
     height: 52px;
     margin-top: 40px;
+
     border: none;
     border-radius: 30px;
     background-color: #f6b83d;
+
     color: #fff;
     font-size: 16px;
     font-weight: 700;
+
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -89,18 +171,21 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
-
 .notification {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 200;
+
     display: flex;
     align-items: center;
     gap: 16px;
+
+    max-width: calc(100vw - 40px);
     padding: 16px;
     border: 1px solid #ef2447;
     border-radius: 12px;
+
     background-color: #fff;
     color: #262626;
     box-shadow: 0 8px 30px rgba(38, 38, 38, 0.15);
@@ -109,8 +194,8 @@
 .notification button {
     border: none;
     background: transparent;
-    cursor: pointer;
     font-size: 24px;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

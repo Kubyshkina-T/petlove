@@ -1,6 +1,7 @@
 .wrapper {
     position: relative;
     width: 100%;
+    min-width: 0;
     aspect-ratio: 335 / 280;
     overflow: hidden;
     border-radius: 30px;
@@ -11,23 +12,30 @@
     position: absolute;
     bottom: 0;
     left: 50%;
+    z-index: 2;
+
     width: 335px;
     height: 280px;
-    object-fit: cover;
+    max-width: 100%;
+
+    object-fit: contain;
     transform: translateX(-50%);
-    z-index: 2;
 }
+
 .shape {
     position: absolute;
     top: 45px;
     left: 25px;
+
     width: 332px;
     height: 414px;
-
 }
-.review{
+
+.review {
     display: none;
 }
+
+/* Tablet */
 @media screen and (min-width: 768px) {
     .wrapper {
         aspect-ratio: 704 / 302;
@@ -37,148 +45,31 @@
     .image {
         width: 364px;
         height: 302px;
-object-fit: contain;
+        max-width: none;
         left: 60%;
     }
 
     .shape {
         top: -50px;
         left: 90px;
-
-        width: 572px;
-        height: 715px;
-    }
-        .review{
-
-        position: absolute;
-            left: 32px;
-            bottom: 22px;
-            z-index: 3;
-        
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        height: 121px;
-            width: 294px;
-            padding:16px;
-    
-            background-color: #ffffff;
-            border-radius: 16px;
-        }
-        
-        .avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-            width: 60px;
-            height: 60px;
-        
-            flex-shrink: 0;
-        padding: 14px;
-            background-color: #fff4df;
-            border-radius: 50%;
-        
-            font-size: 24px;
-            line-height: 1;
-        }
-        
-        .reviewContent {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .reviewTop {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        
-        .name {
-            color: #f6b83d;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 20px;
-        }
-        
-        .birthday {
-            color: rgba(38, 38, 38, 0.5);
-            font-size: 12px;
-            line-height: 14px;
-        font-weight: 500;
-            white-space: nowrap;
-        }
-        
-        .birthday strong {
-            color: #262626;
-            font-weight: 500;
-        }
-        
-        .reviewText {
-            margin: 0;
-            color: rgba(38, 38, 38, 0.8);
-            font-size: 12px;
-            line-height: 14px;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-        }
-        
-}
-@media screen and (min-width: 1280px) {
-    .wrapper {
-        width: 512px;
-        height: 660px;
-
-        aspect-ratio: auto;
-        border-radius: 60px;
-    }
-
-    .image {
-        width: 512px;
-        height: 660px;
-
-        bottom: 0;
-        left: 50%;
-
-        object-fit: contain;
-    }
-
-    .shape {
-        
         width: 572px;
         height: 715px;
     }
 
-         .review {
-             bottom: 65px;
-            
-         }
-}
-.wrapper {
-    position: relative;
-}
-
-.review {
-    display: none;
-}
-
-@media screen and (min-width: 768px) {
     .review {
         position: absolute;
-        left: 5%;
-        bottom: 10%;
+        left: 32px;
+        bottom: 22px;
         z-index: 3;
 
         display: flex;
         align-items: flex-start;
-        gap: 8px;
+        gap: 12px;
 
-        width: 260px;
-        padding: 12px;
-        border-radius: 20px;
-
+        width: 294px;
+        min-height: 121px;
+        padding: 16px;
+        border-radius: 16px;
         background-color: #fff;
     }
 
@@ -188,11 +79,11 @@ object-fit: contain;
         justify-content: center;
         flex-shrink: 0;
 
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         background-color: #fff4df;
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .reviewContent {
@@ -205,23 +96,61 @@ object-fit: contain;
         align-items: center;
         justify-content: space-between;
         gap: 8px;
+        margin-bottom: 8px;
     }
 
     .name {
         color: #f6b83d;
+        font-size: 16px;
         font-weight: 700;
-        font-size: 14px;
+        line-height: 20px;
     }
 
     .birthday {
-        color: #8a8a8a;
-        font-size: 10px;
+        color: rgba(38, 38, 38, 0.5);
+        font-size: 12px;
+        line-height: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .birthday strong {
+        color: #262626;
+        font-weight: 500;
     }
 
     .reviewText {
-        margin-top: 6px;
-        font-size: 11px;
+        margin: 0;
+        color: rgba(38, 38, 38, 0.8);
+        font-size: 12px;
         line-height: 1.3;
-        color: #262626;
+        font-weight: 500;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 1280px) {
+    .wrapper {
+        width: 100%;
+        max-width: 512px;
+        height: 660px;
+        aspect-ratio: auto;
+        border-radius: 60px;
+    }
+
+    .image {
+        width: 512px;
+        height: 660px;
+        max-width: none;
+        left: 50%;
+    }
+
+    .shape {
+        width: 572px;
+        height: 715px;
+    }
+
+    .review {
+        bottom: 65px;
     }
 }
