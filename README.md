@@ -35,13 +35,11 @@ The application allows users to browse pet listings, search and filter available
 
 The interface is implemented according to the provided Figma design, with layouts adapted for mobile, tablet, and desktop screens.
 
-**Figma design:** [Add Figma design link]
+**Figma design:** https://www.figma.com/design/puMNfZVg4YI8UZoJ1QiLLi/Petl%F0%9F%92%9Bve?node-id=0-1&p=f&t=NHfYHiqJXbyPgAnJ-0
 
 ## 📋 Technical Specification
 
 The application was developed according to the project requirements, including component structure, navigation, authentication, API integration, form validation, and responsive design.
-
-**Technical specification:** [Add technical specification link]
 
 ## ⚙️ Getting Started
 
@@ -63,7 +61,7 @@ npm install
 Create a `.env.local` file in the project root:
 
 ```env
-PETLOVE_API_URL=https://petlove.b.goit.study/api
+PETLOVE_API_URL=your_backend_api_url
 ```
 
 ### 4. Start the development server
@@ -77,12 +75,13 @@ Open `http://localhost:3000` in your browser.
 ## 📁 Project Structure
 
 ```text
-src/
+petlove/
 ├── app/          # Application routes and API handlers
 ├── components/   # Reusable UI components
-└── types/        # TypeScript types
-
-public/           # Images, icons, and static assets
+├── types/        # TypeScript types
+├── public/       # Images, icons, and static assets
+├── package.json
+└── README.md
 ```
 
 ## 🔐 Authentication
