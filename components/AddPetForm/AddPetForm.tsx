@@ -1,29 +1,52 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import toast from "react-hot-toast";
+
 import css from "./AddPetForm.module.css";
 
-export type AddPetValues = {
-  name: string;
-  title: string;
-  imgURL: string;
-  species: string;
-  birthday: string;
-  sex: string;
-};
+const imageRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/;
+
+const schema = yup.object({
+  name: yup.string().trim().required("Pet's name is required."),
+
+  title: yup.string().trim().required("Title is required."),
+
+  imgURL: yup
+    .string()
+    .trim()
+    .required("Photo URL is required.")
+    .matches(imageRegex, "Enter a valid image URL."),
+
+  species: yup.string().required("Select a type of pet."),
+
+  birthday: yup
+    .string()
+    .required("Birthday is required.")
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Enter a valid birthday.")
+    .test("valid-date", "Enter a valid birthday.", (value) => {
+      if (!value) return true;
+
+      const date = new Date(`${value}T00:00:00Z`);
+
+      return (
+        !Number.isNaN(date.getTime()) &&
+        date.toISOString().slice(0, 10) === value &&
+        date.getTime() <= Date.now()
+      );
+    }),
+
+  sex: yup.string().required("Select your pet's gender."),
+});
+
+export type AddPetValues = yup.InferType<typeof schema>;
 
 type Props = {
   onSubmit: (data: AddPetValues) => Promise<void>;
   onCancel: () => void;
-};
-
-const initialValues: AddPetValues = {
-  name: "",
-  title: "",
-  imgURL: "",
-  species: "",
-  birthday: "",
-  sex: "",
 };
 
 const sexOptions = [
@@ -45,74 +68,55 @@ const sexOptions = [
 ];
 
 export default function AddPetForm({ onSubmit, onCancel }: Props) {
-  const [form, setForm] = useState<AddPetValues>(initialValues);
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
+  const [previewFailed, setPreviewFailed] = useState(false);
 
-  const updateField = (field: keyof AddPetValues, value: string) => {
-    setForm((current) => ({
-      ...current,
-      [field]: value,
-    }));
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<AddPetValues>({
+    resolver: yupResolver(schema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      name: "",
+      title: "",
+      imgURL: "",
+      species: "",
+      birthday: "",
+      sex: "",
+    },
+  });
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const selectedSex = useWatch({
+    control,
+    name: "sex",
+  });
 
-    if (isSubmitting) return;
+  const imageURL = useWatch({
+    control,
+    name: "imgURL",
+  });
 
-    setError("");
-
-    const values = {
-      name: form.name.trim(),
-      title: form.title.trim(),
-      imgURL: form.imgURL.trim(),
-      species: form.species,
-      birthday: form.birthday,
-      sex: form.sex,
-    };
-
-    if (Object.values(values).some((value) => !value)) {
-      setError("Please fill in all fields.");
-      return;
-    }
-
-    if (!/^https:\/\/\S+\.(png|jpe?g|gif|bmp|webp)$/i.test(values.imgURL)) {
-      setError(
-        "Photo URL must end with .png, .jpg, .jpeg, .gif, .bmp or .webp.",
-      );
-      return;
-    }
-
-    const birthdayDate = new Date(`${values.birthday}T00:00:00Z`);
-
-    if (
-      Number.isNaN(birthdayDate.getTime()) ||
-      birthdayDate.toISOString().slice(0, 10) !== values.birthday ||
-      birthdayDate.getTime() > Date.now()
-    ) {
-      setError("Enter a valid birthday.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
+  const submitForm = async (data: AddPetValues) => {
     try {
-      await onSubmit(values);
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
+      await onSubmit(data);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
           : "Could not add pet. Please try again.",
       );
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
+  const showPreview =
+    Boolean(imageURL) && imageRegex.test(imageURL.trim()) && !previewFailed;
+
   return (
-    <form className={css.form} onSubmit={handleSubmit} noValidate>
+    <form className={css.form} onSubmit={handleSubmit(submitForm)} noValidate>
       <fieldset className={css.sexGroup}>
         <legend className={css.visuallyHidden}>Pet gender</legend>
 
@@ -120,17 +124,11 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
           <label
             key={option.value}
             className={`${css.sexOption} ${
-              form.sex === option.value ? css.sexActive : ""
+              selectedSex === option.value ? css.sexActive : ""
             }`}
             title={option.label}
           >
-            <input
-              type="radio"
-              name="sex"
-              value={option.value}
-              checked={form.sex === option.value}
-              onChange={() => updateField("sex", option.value)}
-            />
+            <input type="radio" value={option.value} {...register("sex")} />
 
             <svg className={css.sexIcon} aria-hidden="true">
               <use href={`/icons/sprite.svg#${option.icon}`} />
@@ -141,16 +139,21 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
         ))}
       </fieldset>
 
+      {errors.sex && (
+        <p className={css.error} role="alert">
+          {errors.sex.message}
+        </p>
+      )}
+
       <div className={css.avatar}>
-        {form.imgURL ? (
+        {showPreview ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={form.imgURL}
+            key={imageURL}
+            src={imageURL.trim()}
             alt="Pet preview"
             className={css.avatarImage}
-            onError={(event) => {
-              event.currentTarget.style.display = "none";
-            }}
+            onError={() => setPreviewFailed(true)}
           />
         ) : (
           <svg className={css.pawIcon} aria-hidden="true">
@@ -165,14 +168,13 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
           type="url"
           placeholder="Enter URL"
           aria-label="Pet photo URL"
-          value={form.imgURL}
-          onChange={(event) => updateField("imgURL", event.target.value)}
+          aria-invalid={!!errors.imgURL}
+          {...register("imgURL", {
+            onChange: () => setPreviewFailed(false),
+          })}
         />
 
-        <span
-          className={css.uploadHint}
-          title="Photo uploading is not connected yet"
-        >
+        <span className={css.uploadHint}>
           Upload photo
           <svg aria-hidden="true">
             <use href="/icons/sprite.svg#icon-upload-cloud" />
@@ -180,23 +182,41 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
         </span>
       </div>
 
+      {errors.imgURL && (
+        <p className={css.error} role="alert">
+          {errors.imgURL.message}
+        </p>
+      )}
+
       <input
         className={css.input}
         type="text"
         placeholder="Title"
         aria-label="Pet title"
-        value={form.title}
-        onChange={(event) => updateField("title", event.target.value)}
+        aria-invalid={!!errors.title}
+        {...register("title")}
       />
+
+      {errors.title && (
+        <p className={css.error} role="alert">
+          {errors.title.message}
+        </p>
+      )}
 
       <input
         className={css.input}
         type="text"
         placeholder="Pet's Name"
         aria-label="Pet name"
-        value={form.name}
-        onChange={(event) => updateField("name", event.target.value)}
+        aria-invalid={!!errors.name}
+        {...register("name")}
       />
+
+      {errors.name && (
+        <p className={css.error} role="alert">
+          {errors.name.message}
+        </p>
+      )}
 
       <div className={css.fieldsRow}>
         <div className={css.dateWrapper}>
@@ -204,9 +224,9 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
             className={`${css.input} ${css.dateInput}`}
             type="date"
             aria-label="Birthday"
-            value={form.birthday}
+            aria-invalid={!!errors.birthday}
             max={new Date().toISOString().slice(0, 10)}
-            onChange={(event) => updateField("birthday", event.target.value)}
+            {...register("birthday")}
           />
 
           <svg className={css.calendarIcon} aria-hidden="true">
@@ -218,13 +238,10 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
           <select
             className={`${css.input} ${css.petSelect}`}
             aria-label="Type of pet"
-            value={form.species}
+            aria-invalid={!!errors.species}
+            {...register("species")}
             onFocus={() => setIsSpeciesOpen(true)}
             onBlur={() => setIsSpeciesOpen(false)}
-            onChange={(event) => {
-              updateField("species", event.target.value);
-              setIsSpeciesOpen(false);
-            }}
           >
             <option value="">Type of pet</option>
             <option value="dog">Dog</option>
@@ -247,9 +264,15 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
         </div>
       </div>
 
-      {error && (
+      {errors.birthday && (
         <p className={css.error} role="alert">
-          {error}
+          {errors.birthday.message}
+        </p>
+      )}
+
+      {errors.species && (
+        <p className={css.error} role="alert">
+          {errors.species.message}
         </p>
       )}
 

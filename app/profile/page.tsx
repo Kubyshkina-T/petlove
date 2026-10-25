@@ -2,19 +2,18 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
-import NoticesList from "@/components/NoticesList/NoticesList";
+import UserCard from "@/components/UserCard/UserCard";
+import MyNotices from "@/components/MyNotices/MyNotices";
 import ModalEditUser, {
   type EditUserValues,
 } from "@/components/ModalEditUser/ModalEditUser";
-import LogOutBtn from "@/components/LogOutBtn/LogOutBtn";
+import Loader from "@/components/Loader/Loader";
+
 import type { Notice } from "@/types/notice";
 import type { Pet } from "@/types/pet";
-import Loader from "@/components/Loader/Loader";
-import css from "./page.module.css";
 
-type ProfileTab = "favorites" | "viewed";
+import css from "./page.module.css";
 
 type Profile = {
   name: string;
@@ -22,16 +21,14 @@ type Profile = {
   phone: string;
   avatar: string;
   noticesFavorites: Notice[];
-  pets: Pet[];
   noticesViewed: Notice[];
+  pets: Pet[];
 };
 
 export default function ProfilePage() {
   const router = useRouter();
 
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [activeTab, setActiveTab] = useState<ProfileTab>("favorites");
-
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -123,6 +120,7 @@ export default function ProfilePage() {
     setIsEditOpen(false);
 
     window.dispatchEvent(new Event("petlove-auth-changed"));
+
     router.refresh();
   };
 
@@ -170,6 +168,19 @@ export default function ProfilePage() {
     }
   };
 
+  const handleFavoritesChange = (ids: string[]) => {
+    setProfile((current) =>
+      current
+        ? {
+            ...current,
+            noticesFavorites: current.noticesFavorites.filter((notice) =>
+              ids.includes(notice._id),
+            ),
+          }
+        : null,
+    );
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -183,189 +194,26 @@ export default function ProfilePage() {
   return (
     <main className={css.page}>
       <div className={css.container}>
-        <section className={css.profileCard}>
-          <div className={css.profileTop}>
-            <span className={css.userBadge}>
-              User
-              <svg aria-hidden="true">
-                <use href="/icons/sprite.svg#icon-user" />
-              </svg>
-            </span>
+        <UserCard
+          user={{
+            name: profile.name,
+            email: profile.email,
+            phone: profile.phone,
+            avatar: profile.avatar,
+          }}
+          pets={profile.pets}
+          deletingPetId={deletingPetId}
+          onEdit={() => setIsEditOpen(true)}
+          onDeletePet={(pet) => {
+            void handleDeletePet(pet);
+          }}
+        />
 
-            <button
-              type="button"
-              className={css.editButton}
-              onClick={() => setIsEditOpen(true)}
-              aria-label="Edit profile"
-            >
-              <svg aria-hidden="true">
-                <use href="/icons/sprite.svg#icon-edit-2" />
-              </svg>
-            </button>
-          </div>
-
-          <div className={css.avatarSection}>
-            <div className={css.avatarPlaceholder}>
-              {profile.avatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={profile.avatar}
-                  alt={`${profile.name}'s avatar`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <svg aria-hidden="true">
-                  <use href="/icons/sprite.svg#icon-user" />
-                </svg>
-              )}
-            </div>
-
-            <button
-              type="button"
-              className={css.uploadButton}
-              onClick={() => setIsEditOpen(true)}
-            >
-              Edit photo URL
-            </button>
-          </div>
-
-          <div className={css.information}>
-            <h2 className={css.sectionTitle}>My information</h2>
-
-            <div className={css.infoGrid}>
-              <div className={css.infoField}>{profile.name}</div>
-              <div className={css.infoField}>{profile.email}</div>
-              <div className={css.infoField}>
-                {profile.phone || "Phone not specified"}
-              </div>
-            </div>
-          </div>
-
-          <div className={css.petsSection}>
-            <div className={css.petsHeading}>
-              <h2 className={css.sectionTitle}>My pets</h2>
-
-              <button
-                type="button"
-                className={css.addPetButton}
-                onClick={() => router.push("/add-pet")}
-              >
-                Add pet +
-              </button>
-            </div>
-
-            <div className={css.petsList}>
-              {profile.pets.length > 0 ? (
-                profile.pets.map((pet) => (
-                  <article key={pet._id} className={css.petCard}>
-                    <div className={css.petImage}>
-                      <Image
-                        src={pet.imgURL}
-                        alt={pet.name}
-                        fill
-                        sizes="66px"
-                        unoptimized
-                      />
-                    </div>
-
-                    <div className={css.petInfo}>
-                      <h3 className={css.petName}>{pet.title}</h3>
-
-                      <p>Name: {pet.name}</p>
-                      <p>
-                        Birthday:{" "}
-                        {pet.birthday
-                          ? new Date(
-                              `${pet.birthday.slice(0, 10)}T00:00:00Z`,
-                            ).toLocaleDateString("en-GB", {
-                              timeZone: "UTC",
-                            })
-                          : "Unknown"}
-                      </p>
-                      <p>Sex: {pet.sex}</p>
-                      <p>Species: {pet.species}</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      className={css.deletePetButton}
-                      onClick={() => void handleDeletePet(pet)}
-                      disabled={deletingPetId !== null}
-                      aria-label={`Remove ${pet.name} from my pets`}
-                      title="Remove pet"
-                    >
-                      <svg aria-hidden="true">
-                        <use href="/icons/sprite.svg#icon-trash" />
-                      </svg>
-                    </button>
-                  </article>
-                ))
-              ) : (
-                <p className={css.placeholder}>
-                  You haven&apos;t added any pets yet.
-                </p>
-              )}
-            </div>
-          </div>
-
-          <LogOutBtn className={css.logoutButton} label="LOGOUT" />
-        </section>
-
-        <section className={css.noticesSection}>
-          <div className={css.tabs} role="tablist" aria-label="My notices">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === "favorites"}
-              className={`${css.tab} ${
-                activeTab === "favorites" ? css.activeTab : ""
-              }`}
-              onClick={() => setActiveTab("favorites")}
-            >
-              My favorite pets
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === "viewed"}
-              className={`${css.tab} ${
-                activeTab === "viewed" ? css.activeTab : ""
-              }`}
-              onClick={() => setActiveTab("viewed")}
-            >
-              Viewed
-            </button>
-          </div>
-
-          <div className={css.noticesContent}>
-            {activeTab === "favorites" ? (
-              <NoticesList
-                notices={profile.noticesFavorites}
-                variant="profile"
-                onFavoritesChange={(ids) => {
-                  setProfile((current) =>
-                    current
-                      ? {
-                          ...current,
-                          noticesFavorites: current.noticesFavorites.filter(
-                            (notice) => ids.includes(notice._id),
-                          ),
-                        }
-                      : null,
-                  );
-                }}
-              />
-            ) : (
-              <NoticesList notices={profile.noticesViewed} variant="profile" />
-            )}
-          </div>
-        </section>
+        <MyNotices
+          favorites={profile.noticesFavorites}
+          viewed={profile.noticesViewed}
+          onFavoritesChange={handleFavoritesChange}
+        />
       </div>
 
       <ModalEditUser

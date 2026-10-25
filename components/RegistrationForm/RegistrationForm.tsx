@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
+import toast from "react-hot-toast";
 import css from "./RegistrationForm.module.css";
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -79,12 +79,14 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
     !errors.confirmPassword;
 
   const handleRegister = async (data: RegistrationValues) => {
-    setServerError("");
-
     try {
       await onSubmit(data);
-    } catch {
-      setServerError("Registration failed. Please try again.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again.",
+      );
     }
   };
 
@@ -94,7 +96,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
       onSubmit={handleSubmit(handleRegister)}
       noValidate
     >
-      {/* Name */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -292,19 +293,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
           </p>
         )}
       </div>
-
-      {serverError && (
-        <div className={css.notification} role="alert">
-          <span>{serverError}</span>
-          <button
-            type="button"
-            onClick={() => setServerError("")}
-            aria-label="Close notification"
-          >
-            ×
-          </button>
-        </div>
-      )}
 
       <button
         type="submit"

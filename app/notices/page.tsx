@@ -45,8 +45,6 @@ async function getNotices(
     }
   });
 
-  // Предварительная схема сортировки.
-  // Уточнить направление true/false по результатам API.
   if (filters.sort === "popular") {
     params.set("byPopularity", "true");
   }

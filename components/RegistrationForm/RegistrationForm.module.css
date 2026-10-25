@@ -175,33 +175,6 @@
     cursor: not-allowed;
 }
 
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 200;
-
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    max-width: calc(100vw - 40px);
-    padding: 16px;
-
-    border: 1px solid #ef2447;
-    border-radius: 12px;
-
-    background-color: #fff;
-    color: #262626;
-    box-shadow: 0 8px 30px rgba(38, 38, 38, 0.15);
-}
-
-.notification button {
-    border: none;
-    background: transparent;
-    font-size: 24px;
-    cursor: pointer;
-}
 
 @media screen and (min-width: 768px) {
     .form {

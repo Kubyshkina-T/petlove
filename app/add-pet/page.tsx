@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
+import PetBlock from "@/components/PetBlock/PetBlock";
 import AddPetForm, {
   type AddPetValues,
 } from "@/components/AddPetForm/AddPetForm";
@@ -23,7 +23,9 @@ export default function AddPetPage() {
 
     if (response.status === 401) {
       window.dispatchEvent(new Event("petlove-auth-changed"));
+
       router.replace("/login");
+
       throw new Error("Your session has expired.");
     }
 
@@ -41,19 +43,13 @@ export default function AddPetPage() {
     <main className={css.page}>
       <div className={css.container}>
         <div className={css.petBlock}>
-          <Image
-            src="/add_pet.png"
-            alt="Dog"
-            fill
-            priority
-            sizes="(max-width: 767px) 100vw, (max-width: 1279px) 704px, 592px"
-            className={css.petImage}
-          />
+          <PetBlock src="/add_pet.png" alt="Dog" />
         </div>
 
         <section className={css.formSection}>
           <div className={css.heading}>
             <h1 className={css.title}>Add my pet</h1>
+
             <span className={css.subtitle}>/ Personal details</span>
           </div>
 

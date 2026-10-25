@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
+import toast from "react-hot-toast";
 import css from "./LoginForm.module.css";
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -28,7 +28,6 @@ type LoginFormProps = {
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [serverError, setServerError] = useState("");
 
   const {
     register,
@@ -53,12 +52,14 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
     password.length >= 7;
 
   const handleLogin = async (data: LoginValues) => {
-    setServerError("");
-
     try {
       await onSubmit(data);
-    } catch {
-      setServerError("Login failed. Please try again.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Login failed. Please try again.",
+      );
     }
   };
 
@@ -151,23 +152,10 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
 
         {isPasswordValid && (
           <p id="login-password-success" className={css.success}>
-            Password is secure
+            Password is valid
           </p>
         )}
       </div>
-      {serverError && (
-        <div className={css.notification} role="alert">
-          <span>{serverError}</span>
-
-          <button
-            type="button"
-            onClick={() => setServerError("")}
-            aria-label="Close notification"
-          >
-            ×
-          </button>
-        </div>
-      )}
       <button
         type="submit"
         className={css.submitButton}

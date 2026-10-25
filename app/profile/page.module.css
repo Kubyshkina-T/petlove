@@ -130,6 +130,8 @@
     border-color: rgba(38, 38, 38, 0.15);
 }
 
+
+
 .petsSection {
     margin-top: 40px;
 }
@@ -141,36 +143,181 @@
     gap: 12px;
 }
 
-.addPetButton {
-    flex-shrink: 0;
-    min-height: 36px;
-    padding: 0 16px;
-    border: none;
-    border-radius: 30px;
-    background-color: #f6b83d;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-}
+/* PetsList — Mobile */
 
 .petsList {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 295px);
     gap: 14px;
     margin-top: 20px;
 }
 
+/* PetsItem — Mobile */
+
+.petCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    width: 295px;
+    height: 132px;
+    padding: 12px;
+
+    border: 1px solid rgba(38, 38, 38, 0.1);
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.petImage {
+    position: relative;
+    flex: 0 0 66px;
+    width: 66px;
+    height: 66px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.petImage img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.petInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.petHeading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.petTitle {
+    min-width: 0;
+    margin: 0;
+    color: #262626;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.deletePetButton {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #fff4df;
+    color: #f6b83d;
+    cursor: pointer;
+}
+
+.deletePetButton svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+}
+
+.deletePetButton:hover {
+    background-color: #fbe2ad;
+}
+
+.deletePetButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.petDetails {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 6px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    min-width: 0;
+}
+
+.detailLabel {
+    color: rgba(38, 38, 38, 0.5);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+.detailValue {
+    color: #262626;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+/* Logout */
+
 .logoutButton {
-    margin-top: 40px;
-    padding: 14px 30px;
-    border: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 114px;
+    height: 42px;
+    flex-shrink: 0;
+    padding: 12px 28px;
+    margin-top: 20px;
+
+    border: none;
     border-radius: 30px;
     background-color: #fff4df;
+
     color: #f6b83d;
     font-size: 14px;
     font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
+
+.logoutButton:hover {
+    background-color: #e9a52a;
+}
+
+.logoutButton:focus-visible {
+    outline: 2px solid #262626;
+    outline-offset: 3px;
+}
+
+.logoutButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* MyNotices */
 
 .noticesSection {
     min-width: 0;
@@ -207,71 +354,6 @@
     color: rgba(38, 38, 38, 0.6);
     font-size: 14px;
 }
-.petImage {
-    position: relative;
-    flex: 0 0 66px;
-    width: 66px;
-    height: 66px;
-    overflow: hidden;
-    border-radius: 50%;
-}
-
-.petImage img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-    border-radius: 50%;
-}
-.petCard {
-    position: relative;
-}
-
-.petInfo {
-    flex: 1;
-    min-width: 0;
-    padding-right: 24px;
-}
-
-.deletePetButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 28px;
-    height: 28px;
-    padding: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background-color: #fff4df;
-    color: #f6b83d;
-
-    cursor: pointer;
-    transition:
-        background-color 0.2s ease,
-        opacity 0.2s ease;
-}
-
-.deletePetButton svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: currentColor;
-}
-
-.deletePetButton:hover {
-    background-color: #fbe2ad;
-}
-
-.deletePetButton:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
 
 .pageError {
     margin-top: 16px;
@@ -287,6 +369,9 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+/* Tablet */
+
 @media screen and (min-width: 768px) {
     .page {
         padding: 40px 32px 80px;
@@ -302,9 +387,34 @@
     }
 
     .petsList {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 305px);
+    }
+
+    .petCard {
+        width: 305px;
+        height: 149px;
+        padding: 14px;
+    }
+
+    .petHeading {
+        gap: 11px;
+    }
+
+    .deletePetButton {
+        width: 32px;
+        height: 32px;
+    }
+
+    .logoutButton {
+        width: 136px;
+        height: 50px;
+        padding: 15px 35px;
+        font-size: 16px;
+        line-height: 20px;
     }
 }
+
+/* Desktop */
 
 @media screen and (min-width: 1280px) {
     .page {
@@ -327,6 +437,15 @@
     }
 
     .petsList {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 305px;
+    }
+
+    .deletePetButton {
+        width: 38px;
+        height: 38px;
+    }
+
+    .logoutButton {
+        margin-top: 40px;
     }
 }

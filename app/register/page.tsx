@@ -28,9 +28,13 @@ export default function RegisterPage() {
     });
 
     if (!response.ok) {
-      throw new Error("Registration failed");
-    }
+      const result = await response.json().catch(() => null);
 
+      throw new Error(
+        result?.message ?? "Registration failed. Please try again.",
+      );
+    }
+    window.dispatchEvent(new Event("petlove-auth-changed"));
     router.replace("/profile");
     router.refresh();
   };

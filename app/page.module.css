@@ -1,28 +1,12 @@
-/* .container {
-  width: 100%;
-  max-width: 375px;
-  margin: 0 auto;
-  padding: 0 20px;
-} */
-
-
 .container {
   width: 100%;
-  max-width: 1216px;
+  max-width: 1280px;
   margin-inline: auto;
+  padding-inline: 20px;
 }
 
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .container {
-    max-width: 768px;
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-}
-
-
-@media only screen and (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
+    padding-inline: 32px;
   }
 }

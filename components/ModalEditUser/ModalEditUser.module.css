@@ -110,6 +110,27 @@
     cursor: wait;
 }
 
+
+.field input[aria-invalid="true"],
+.field input[aria-invalid="true"]:focus {
+    border-color: #ef2447;
+}
+
+.field input:focus-visible {
+    outline: none;
+}
+
+.field input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.saveButton:focus-visible,
+.closeButton:focus-visible {
+    outline: 2px solid #f6b83d;
+    outline-offset: 3px;
+}
+
 @media screen and (min-width: 768px) {
     .modal {
         padding: 60px 40px 40px;

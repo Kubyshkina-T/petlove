@@ -1,0 +1,60 @@
+.addPetButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: 103px;
+    height: 38px;
+    flex-shrink: 0;
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 30px;
+    background-color: #f6b83d;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.addPetButton:hover {
+    background-color: #e9a52a;
+}
+
+.addPetButton:focus-visible {
+    outline: 2px solid #262626;
+    outline-offset: 3px;
+}
+
+.addPetButton span {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* Tablet and Desktop */
+
+@media screen and (min-width: 768px) {
+    .addPetButton {
+        width: 118px;
+        height: 40px;
+        padding: 10px 20px;
+
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.03em;
+    }
+
+    .addPetButton span {
+        font-size: 20px;
+    }
+}

@@ -1,7 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import toast from "react-hot-toast";
 
 import css from "./ModalEditUser.module.css";
 
@@ -19,34 +24,84 @@ type Props = {
   onSave: (data: EditUserValues) => Promise<void>;
 };
 
+const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+const avatarRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/;
+
+const phoneRegex = /^\+38\d{10}$/;
+
+const schema = yup.object({
+  name: yup.string().defined(),
+
+  email: yup.string().defined().matches(emailRegex, {
+    message: "Enter a valid email.",
+    excludeEmptyString: true,
+  }),
+
+  phone: yup.string().defined().matches(phoneRegex, {
+    message: "Enter a phone number in the format +380XXXXXXXXX.",
+    excludeEmptyString: true,
+  }),
+
+  avatar: yup.string().defined().matches(avatarRegex, {
+    message: "Enter a valid image URL.",
+    excludeEmptyString: true,
+  }),
+});
+
 export default function ModalEditUser({
   isOpen,
   user,
   onClose,
   onSave,
 }: Props) {
-  const [form, setForm] = useState<EditUserValues>(user);
-  const [error, setError] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
+  const titleId = useId();
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const savingRef = useRef(false);
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<EditUserValues>({
+    resolver: yupResolver(schema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      avatar: user.avatar,
+    },
+  });
+
+  // Fill the form with the current profile information.
   useEffect(() => {
     if (!isOpen) return;
 
-    setForm(user);
-    setError("");
+    reset({
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      avatar: user.avatar,
+    });
+  }, [isOpen, reset, user.name, user.email, user.phone, user.avatar]);
+
+  // Manage focus, Escape and page scrolling.
+  useEffect(() => {
+    if (!isOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     const previousFocus = document.activeElement as HTMLElement | null;
 
     document.body.style.overflow = "hidden";
+
     closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !savingRef.current) {
+      if (event.key === "Escape" && !isSubmitting) {
         onClose();
       }
 
@@ -72,63 +127,29 @@ export default function ModalEditUser({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
       previousFocus?.focus();
     };
-  }, [isOpen, user, onClose]);
+  }, [isOpen, isSubmitting, onClose]);
 
-  const updateField = (field: keyof EditUserValues, value: string) => {
-    setForm((current) => ({
-      ...current,
-      [field]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
-
-    if (!form.name.trim()) {
-      setError("Name is required.");
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError("Enter a valid email.");
-      return;
-    }
-
-    if (form.phone.trim() && !/^\+?[\d\s()-]{7,20}$/.test(form.phone.trim())) {
-      setError("Enter a valid phone number.");
-      return;
-    }
-
-    if (form.avatar.trim()) {
-      try {
-        const url = new URL(form.avatar.trim());
-
-        if (url.protocol !== "https:") {
-          throw new Error();
-        }
-      } catch {
-        setError("Enter a valid HTTPS image URL.");
-        return;
-      }
-    }
-    savingRef.current = true;
-    setIsSaving(true);
-
+  const submitForm = async (data: EditUserValues) => {
     try {
-      await onSave(form);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save changes.");
-    } finally {
-      savingRef.current = false;
-      setIsSaving(false);
+      await onSave({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phone: data.phone.trim(),
+        avatar: data.avatar.trim(),
+      });
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not save changes. Please try again.",
+      );
     }
   };
 
@@ -140,7 +161,7 @@ export default function ModalEditUser({
     <div
       className={css.backdrop}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !savingRef.current) {
+        if (event.target === event.currentTarget && !isSubmitting) {
           onClose();
         }
       }}
@@ -150,14 +171,14 @@ export default function ModalEditUser({
         className={css.modal}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="edit-user-title"
+        aria-labelledby={titleId}
       >
         <button
           ref={closeRef}
           type="button"
           className={css.closeButton}
           onClick={onClose}
-          disabled={isSaving}
+          disabled={isSubmitting}
           aria-label="Close modal"
         >
           <svg aria-hidden="true">
@@ -165,61 +186,82 @@ export default function ModalEditUser({
           </svg>
         </button>
 
-        <h2 id="edit-user-title" className={css.title}>
+        <h2 id={titleId} className={css.title}>
           Edit information
         </h2>
 
-        <form className={css.form} onSubmit={handleSubmit} noValidate>
+        <form
+          className={css.form}
+          onSubmit={handleSubmit(submitForm)}
+          noValidate
+        >
           <label className={css.field}>
             <span>Name</span>
             <input
-              value={form.name}
-              onChange={(event) => updateField("name", event.target.value)}
+              {...register("name")}
+              type="text"
               autoComplete="name"
-              required
+              aria-invalid={!!errors.name}
             />
+            {errors.name && (
+              <span className={css.error} role="alert">
+                {errors.name.message}
+              </span>
+            )}
           </label>
 
           <label className={css.field}>
             <span>Email</span>
             <input
+              {...register("email")}
               type="email"
-              value={form.email}
-              onChange={(event) => updateField("email", event.target.value)}
               autoComplete="email"
-              required
+              aria-invalid={!!errors.email}
             />
+            {errors.email && (
+              <span className={css.error} role="alert">
+                {errors.email.message}
+              </span>
+            )}
           </label>
 
           <label className={css.field}>
             <span>Phone</span>
             <input
+              {...register("phone")}
               type="tel"
-              value={form.phone}
-              onChange={(event) => updateField("phone", event.target.value)}
-              placeholder="+380..."
+              placeholder="+380XXXXXXXXX"
               autoComplete="tel"
+              aria-invalid={!!errors.phone}
             />
+            {errors.phone && (
+              <span className={css.error} role="alert">
+                {errors.phone.message}
+              </span>
+            )}
           </label>
 
           <label className={css.field}>
             <span>Avatar URL</span>
             <input
+              {...register("avatar")}
               type="url"
-              value={form.avatar}
-              onChange={(event) => updateField("avatar", event.target.value)}
               placeholder="https://example.com/photo.jpg"
+              aria-invalid={!!errors.avatar}
             />
+            {errors.avatar && (
+              <span className={css.error} role="alert">
+                {errors.avatar.message}
+              </span>
+            )}
           </label>
 
-          {error && (
-            <p className={css.error} role="alert">
-              {error}
-            </p>
-          )}
-
-          <button type="submit" className={css.saveButton} disabled={isSaving}>
-            {isSaving ? "SAVING..." : "SAVE CHANGES"}
+          <button
+            type="submit"
+            className={css.saveButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "SAVING..." : "SAVE CHANGES"}
           </button>
         </form>
       </div>
