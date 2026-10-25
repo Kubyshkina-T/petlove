@@ -61,7 +61,7 @@ npm install
 Create a `.env.local` file in the project root:
 
 ```env
-PETLOVE_API_URL=your_backend_api_url
+PETLOVE_API_URL=https://petlove.b.goit.study/api
 ```
 
 ### 4. Start the development server
