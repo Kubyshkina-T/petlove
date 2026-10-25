@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 PetLove
 
-## Getting Started
+PetLove is a responsive web application designed to help people find pets for adoption, explore animal-related news, and connect with organizations that care for animals.
 
-First, run the development server:
+The application allows users to browse pet listings, search and filter available animals, save favorite pets, and manage their personal profiles.
+
+## 🚀 Technologies
+
+- **Next.js** — React framework with App Router
+- **React** — user interface development
+- **TypeScript** — type-safe JavaScript
+- **CSS Modules** — component styling and responsive layouts
+- **React Hook Form** — form management
+- **Yup** — form validation
+- **React Hot Toast** — user notifications
+- **REST API** — communication with the backend
+
+## ✨ Features
+
+- Responsive design for mobile, tablet, and desktop devices
+- User registration, login, and logout
+- User profile management
+- Adding and removing pets from a personal profile
+- Browsing pet listings
+- Filtering and searching for pets
+- Adding and removing pets from favorites
+- Viewing previously opened pet listings
+- Browsing news and partner organizations
+- Pagination
+- Modal windows for user interactions
+- Form validation and error handling
+- Loading indicators
+
+## 🎨 Design
+
+The interface is implemented according to the provided Figma design, with layouts adapted for mobile, tablet, and desktop screens.
+
+**Figma design:** [Add Figma design link]
+
+## 📋 Technical Specification
+
+The application was developed according to the project requirements, including component structure, navigation, authentication, API integration, form validation, and responsive design.
+
+**Technical specification:** [Add technical specification link]
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+PETLOVE_API_URL=https://petlove.b.goit.study/api
+```
+
+### 4. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+src/
+├── app/          # Application routes and API handlers
+├── components/   # Reusable UI components
+└── types/        # TypeScript types
 
-## Learn More
+public/           # Images, icons, and static assets
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+PetLove uses cookie-based authentication. Protected functionality, including profile management, favorites, and adding pets, is available to authenticated users.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👩‍💻 Author
 
-## Deploy on Vercel
+**Tetiana Kubyshkina**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHub: https://github.com/Kubyshkina-T
