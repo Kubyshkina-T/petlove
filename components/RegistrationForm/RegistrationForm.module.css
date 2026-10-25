@@ -42,23 +42,17 @@
     border-color: #f6b83d;
 }
 
-/* Invalid fields */
-
 .input[aria-invalid="true"],
 .input[aria-invalid="true"]:hover,
 .input[aria-invalid="true"]:focus {
     border-color: #ef2447;
 }
 
-/* Valid fields */
-
 .input.valid,
 .input.valid:hover,
 .input.valid:focus {
     border-color: #08aa83;
 }
-
-/* Icons for Name and Email */
 
 .fieldIcon {
     position: absolute;
@@ -76,8 +70,6 @@
     pointer-events: none;
 }
 
-/* Password icons container */
-
 .inputActions {
     position: absolute;
     top: 0;
@@ -88,8 +80,6 @@
     align-items: center;
     gap: 12px;
 }
-
-/* Error icon */
 
 .errorIcon {
     display: block;
@@ -103,8 +93,6 @@
     pointer-events: none;
 }
 
-/* Success icon */
-
 .successIcon {
     display: block;
     width: 20px;
@@ -116,8 +104,6 @@
     fill: none;
     pointer-events: none;
 }
-
-/* Show and hide password */
 
 .eyeButton {
     display: flex;
@@ -134,13 +120,11 @@
 
     cursor: pointer;
 }
-
 .eyeButton:focus-visible {
     outline: 2px solid #f6b83d;
     outline-offset: 3px;
     border-radius: 4px;
 }
-
 .eyeIcon {
     display: block;
     width: 20px;
@@ -148,8 +132,6 @@
     fill: none;
     stroke: currentColor;
 }
-
-/* Validation messages */
 
 .error,
 .success {
@@ -165,8 +147,6 @@
 .success {
     color: #08aa83;
 }
-
-/* Registration button */
 
 .submitButton {
     width: 100%;
@@ -195,8 +175,6 @@
     cursor: not-allowed;
 }
 
-/* Server notification */
-
 .notification {
     position: fixed;
     top: 20px;
@@ -224,8 +202,6 @@
     font-size: 24px;
     cursor: pointer;
 }
-
-/* Tablet */
 
 @media screen and (min-width: 768px) {
     .form {

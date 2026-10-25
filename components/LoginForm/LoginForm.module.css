@@ -60,8 +60,6 @@
     gap: 12px;
 }
 
-/* Error icon */
-
 .errorIcon {
     display: block;
     width: 18px;
@@ -81,8 +79,6 @@
     transform: translateY(-50%);
 }
 
-/* Success icon */
-
 .successIcon {
     display: block;
     width: 20px;
@@ -94,8 +90,6 @@
     stroke: currentColor;
     pointer-events: none;
 }
-
-/* Show/hide password */
 
 .eyeButton {
     display: flex;
@@ -125,9 +119,6 @@
     fill: none;
     stroke: currentColor;
 }
-
-/* Validation messages */
-
 .error,
 .success {
     margin: 4px 0 0 12px;
@@ -142,8 +133,6 @@
 .success {
     color: #08aa83;
 }
-
-/* Submit button */
 
 .submitButton {
     width: 100%;

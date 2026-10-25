@@ -1,34 +1,51 @@
 .wrapper {
     position: relative;
-
     width: 100%;
-    min-height: 100vh;
-
+    min-height: 100dvh;
     overflow: hidden;
+    background-color: #f6b83d;
 }
 
 .image {
     object-fit: cover;
     object-position: 75% center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.logo {
+.imageVisible {
+    opacity: 1;
+}
+
+.overlay {
     position: absolute;
-    top: 47%;
-    left: 50%;
+    inset: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.content {
+    position: absolute;
+    inset: 0;
     z-index: 2;
 
     display: flex;
     align-items: center;
+    justify-content: center;
+}
 
-    transform: translateX(-50%);
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    color: #ffffff;
-
+    color: #fff;
     font-size: 50px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
+    white-space: nowrap;
 }
 
 .heart {
@@ -36,6 +53,23 @@
     height: 28px;
     flex-shrink: 0;
     color: #f6b83d;
+    fill: currentColor;
+}
+
+.loaderWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.loaderWrapper :global(svg) {
+    color: #fff;
+    fill: currentColor;
+}
+
+.loaderWrapper :global(p) {
+    color: #fff;
 }
 
 @media screen and (min-width: 768px) {
@@ -44,7 +78,6 @@
     }
 
     .logo {
-        top: 48%;
         font-size: 100px;
     }
 
@@ -58,5 +91,10 @@
     .image {
         object-position: center;
     }
+}
 
+@media (prefers-reduced-motion: reduce) {
+    .image {
+        transition: none;
+    }
 }

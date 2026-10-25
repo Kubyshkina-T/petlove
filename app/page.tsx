@@ -1,12 +1,11 @@
-import css from "@/app/page.module.css";
+import css from "./page.module.css";
+import SplashScreen from "@/components/SplashScreen/SplashScreen";
 
 export default function Home() {
   return (
     <main>
       <div className={css.container}>
-        {/* <SplashScreen /> */}
-
-        {/* <LogInPage /> */}
+        <SplashScreen />
       </div>
     </main>
   );

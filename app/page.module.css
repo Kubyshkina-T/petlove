@@ -1,8 +1,15 @@
-.container {
+/* .container {
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
   padding: 0 20px;
+} */
+
+
+.container {
+  width: 100%;
+  max-width: 1216px;
+  margin-inline: auto;
 }
 
 @media only screen and (min-width: 768px) {

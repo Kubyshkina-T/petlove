@@ -35,7 +35,6 @@
     display: none;
 }
 
-/* Tablet */
 @media screen and (min-width: 768px) {
     .wrapper {
         aspect-ratio: 704 / 302;
@@ -127,8 +126,6 @@
         font-weight: 500;
     }
 }
-
-/* Desktop */
 @media screen and (min-width: 1280px) {
     .wrapper {
         width: 100%;

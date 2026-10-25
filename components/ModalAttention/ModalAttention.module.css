@@ -1,0 +1,139 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    background-color: rgba(38, 38, 38, 0.5);
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 466px;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+
+    padding: 60px 24px 40px;
+    border-radius: 30px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #262626;
+    cursor: pointer;
+}
+
+.closeIcon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+}
+
+.title {
+    margin: 0;
+    color: #262626;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.description {
+    margin: 20px 0 0;
+    color: #262626;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.login,
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background-color 0.3s ease;
+}
+
+.login {
+    background-color: #f6b83d;
+    color: #fff;
+}
+
+.login:hover,
+.login:focus-visible {
+    background-color: #e9a52a;
+}
+
+.register {
+    background-color: #fff4df;
+    color: #f6b83d;
+}
+
+.register:hover,
+.register:focus-visible {
+    background-color: #fbe5ba;
+}
+
+.closeButton:focus-visible {
+    outline: 2px solid #f6b83d;
+    outline-offset: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    .modal {
+        padding: 60px;
+        border-radius: 60px;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .login,
+    .register {
+        min-width: 140px;
+    }
+}

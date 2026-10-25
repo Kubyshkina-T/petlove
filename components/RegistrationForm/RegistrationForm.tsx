@@ -131,7 +131,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
         )}
       </div>
 
-      {/* Email */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -168,7 +167,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
         )}
       </div>
 
-      {/* Password */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -234,7 +232,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
         )}
       </div>
 
-      {/* Confirm password */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -296,7 +293,6 @@ export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
         )}
       </div>
 
-      {/* Server notification */}
       {serverError && (
         <div className={css.notification} role="alert">
           <span>{serverError}</span>

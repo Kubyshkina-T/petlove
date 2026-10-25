@@ -1,14 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import PetBlock from "@/components/PetBlock/PetBlock";
 import Title from "@/components/Title/Title";
 import LoginForm, { type LoginValues } from "@/components/LoginForm/LoginForm";
+
 import css from "./page.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const handleLogin = async (data: LoginValues) => {
-    void data;
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
+
+    router.replace("/profile");
+    router.refresh();
   };
 
   return (

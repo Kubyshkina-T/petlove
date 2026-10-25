@@ -1,0 +1,136 @@
+/* Mobile */
+
+.page {
+    width: 100%;
+    min-height: calc(100dvh - 80px);
+    padding: 10px 20px 20px;
+    background-color: #f9f9f9;
+}
+
+.errorSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 500px;
+    padding: 40px 16px;
+    border-radius: 30px;
+    background-color: #f6b83d;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: fit-content;
+    max-width: 100%;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.code span {
+    display: block;
+    flex-shrink: 0;
+    font-size: 109px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.06em;
+}
+
+.catCircle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex: 0 0 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color:#FFFFFF1A;
+}
+
+.catImage {
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+.message {
+    margin: 20px 0 16px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.homeButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    min-height: 36px;
+    padding: 8px 18px;
+    border-radius: 30px;
+    background-color: #fff4df;
+    color: #f6b83d;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.homeButton:hover {
+    background-color: #fff;
+}
+
+/* Tablet */
+
+@media screen and (min-width: 768px) {
+    .page {
+        padding: 16px 32px 32px;
+    }
+
+    .errorSection {
+        min-height: 650px;
+        padding: 60px 20px;
+        border-radius: 50px;
+    }
+
+    .code span {
+        font-size: 180px;
+    }
+
+    .catCircle {
+        width: 160px;
+        height: 160px;
+        flex-basis: 160px;
+    }
+
+    .message {
+        margin: 24px 0 20px;
+        font-size: 18px;
+    }
+
+    .homeButton {
+        min-width: 180px;
+        min-height: 48px;
+        font-size: 14px;
+    }
+}
+
+/* Desktop */
+
+@media screen and (min-width: 1280px) {
+    .errorSection {
+        min-height: 654px;
+        border-radius: 60px;
+    }
+}

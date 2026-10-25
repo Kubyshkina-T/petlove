@@ -64,7 +64,6 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
 
   return (
     <form className={css.form} onSubmit={handleSubmit(handleLogin)} noValidate>
-      {/* Email */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -92,7 +91,6 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
         )}
       </div>
 
-      {/* Password */}
       <div className={css.field}>
         <div className={css.inputWrapper}>
           <input
@@ -157,8 +155,6 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           </p>
         )}
       </div>
-
-      {/* Server notification */}
       {serverError && (
         <div className={css.notification} role="alert">
           <span>{serverError}</span>
@@ -172,8 +168,6 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           </button>
         </div>
       )}
-
-      {/* Submit */}
       <button
         type="submit"
         className={css.submitButton}

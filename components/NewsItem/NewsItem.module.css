@@ -1,0 +1,73 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 335 / 190;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.title {
+    margin: 20px 0 0;
+    color: #262626;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+}
+
+.description {
+    margin: 14px 0 0;
+    color: #262626;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.footer time {
+    color: rgba(38, 38, 38, 0.5);
+    font-size: 14px;
+}
+
+.link {
+    color: #f6b83d;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.3s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+    color: #e9a52a;
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}

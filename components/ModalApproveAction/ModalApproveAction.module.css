@@ -1,0 +1,147 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    background-color: rgba(38, 38, 38, 0.45);
+}
+
+.modal {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 335px;
+    padding: 40px 20px;
+
+    border-radius: 30px;
+    background-color: #fff;
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+    color: #262626;
+    cursor: pointer;
+}
+
+.closeButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+.iconCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #fff4df;
+}
+
+.catPlaceholder {
+    display: block;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+    font-size: 44px;
+    line-height: 1;
+}
+
+.title {
+    margin: 0 0 28px;
+    color: #262626;
+
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.confirmButton,
+.cancelButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    width: 100%;
+    max-width: 137px;
+    height: 42px;
+    padding: 0 12px;
+
+    border: none;
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.confirmButton {
+    color: #fff;
+    background-color: #f6b83d;
+}
+
+.confirmButton:hover {
+    background-color: #f9b020;
+}
+
+.cancelButton {
+    color: #262626;
+    background-color: #f9f9f9;
+}
+
+.cancelButton:hover {
+    background-color: #ededed;
+}
+
+.confirmButton:disabled,
+.cancelButton:disabled,
+.closeButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media screen and (min-width: 768px) {
+    .modal {
+        max-width: 448px;
+        min-height: 320px;
+        padding: 72px 60px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .confirmButton,
+    .cancelButton {
+        height: 48px;
+    }
+}

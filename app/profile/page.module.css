@@ -1,0 +1,332 @@
+.page {
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    background-color: #f9f9f9;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1216px;
+    margin: 0 auto;
+}
+
+.profileCard {
+    width: 100%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: #fff;
+}
+
+.profileTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.userBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    background-color: #f6b83d;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.userBadge svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.editButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background-color: #fff4df;
+    color: #f6b83d;
+    cursor: pointer;
+}
+
+.editButton svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+}
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.avatarPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #fff4df;
+    color: #f6b83d;
+}
+
+.avatarPlaceholder svg {
+    width: 40px;
+    height: 40px;
+    fill: currentColor;
+}
+
+.uploadButton {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #262626;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.information {
+    margin-top: 32px;
+}
+
+.sectionTitle {
+    margin: 0;
+    color: #262626;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.infoField {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid #f6b83d;
+    border-radius: 30px;
+    color: #262626;
+    font-size: 14px;
+}
+
+.infoField:last-child {
+    border-color: rgba(38, 38, 38, 0.15);
+}
+
+.petsSection {
+    margin-top: 40px;
+}
+
+.petsHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.addPetButton {
+    flex-shrink: 0;
+    min-height: 36px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 30px;
+    background-color: #f6b83d;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.petsList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.logoutButton {
+    margin-top: 40px;
+    padding: 14px 30px;
+    border: 0;
+    border-radius: 30px;
+    background-color: #fff4df;
+    color: #f6b83d;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.noticesSection {
+    min-width: 0;
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    min-height: 42px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #262626;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.activeTab {
+    background-color: #f6b83d;
+    color: #fff;
+}
+
+.noticesContent {
+    min-height: 200px;
+}
+
+.placeholder {
+    color: rgba(38, 38, 38, 0.6);
+    font-size: 14px;
+}
+.petImage {
+    position: relative;
+    flex: 0 0 66px;
+    width: 66px;
+    height: 66px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.petImage img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.petCard {
+    position: relative;
+}
+
+.petInfo {
+    flex: 1;
+    min-width: 0;
+    padding-right: 24px;
+}
+
+.deletePetButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #fff4df;
+    color: #f6b83d;
+
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.deletePetButton svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+}
+
+.deletePetButton:hover {
+    background-color: #fbe2ad;
+}
+
+.deletePetButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageError {
+    margin-top: 16px;
+    color: #d62847;
+    font-size: 14px;
+}
+
+.pageError button {
+    margin-top: 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+    .page {
+        padding: 40px 32px 80px;
+    }
+
+    .profileCard {
+        padding: 40px;
+        border-radius: 50px;
+    }
+
+    .infoGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .petsList {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .page {
+        padding: 40px 32px 80px;
+    }
+
+    .container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+    }
+
+    .profileCard {
+        flex: 0 0 520px;
+        padding: 40px;
+    }
+
+    .noticesSection {
+        flex: 1;
+    }
+
+    .petsList {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

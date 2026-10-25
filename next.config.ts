@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ftp.goit.study",
+        pathname: "/img/pets/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ftp.goit.study",
         pathname: "/img/petsfriends/**",
       },
     ],

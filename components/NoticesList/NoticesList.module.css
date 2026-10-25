@@ -1,0 +1,42 @@
+.list {
+    display: grid;
+    grid-template-columns: minmax(0, 335px);
+    justify-content: center;
+    gap: 20px;
+
+    width: 100%;
+    margin: 40px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.profileList {
+    margin-top: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .list {
+        grid-template-columns: repeat(2, minmax(0, 343px));
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .profileList {
+        margin-top: 0;
+        gap: 16px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .list {
+        grid-template-columns: repeat(3, minmax(0, 363px));
+        justify-content: center;
+        gap: 24px;
+    }
+
+    .profileList {
+        grid-template-columns: repeat(2, minmax(0, 363px));
+        gap: 16px;
+        margin-top: 0;
+    }
+}

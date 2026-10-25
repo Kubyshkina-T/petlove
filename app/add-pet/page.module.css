@@ -1,0 +1,152 @@
+.page {
+    width: 100%;
+    min-height: calc(100dvh - 80px);
+    padding: 20px 20px 60px;
+    background-color: #f9f9f9;
+}
+
+/* Main container */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 1216px;
+    margin: 0 auto;
+}
+
+/* Pet image block */
+
+.petBlock {
+    position: relative;
+    width: 100%;
+    height: 213px;
+    overflow: hidden;
+    border-radius: 30px;
+    background-color: #f6b83d;
+}
+
+.petImage {
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+/* Form section */
+
+.formSection {
+    width: 100%;
+    min-width: 0;
+    padding: 28px 20px 32px;
+    border-radius: 30px;
+    background-color: #fff;
+}
+
+/* Heading */
+
+.heading {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.title {
+    margin: 0;
+    color: #262626;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.subtitle {
+    color: rgba(38, 38, 38, 0.5);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+/* Tablet */
+
+@media screen and (min-width: 768px) {
+    .page {
+        padding: 32px 32px 80px;
+    }
+
+    .container {
+        gap: 16px;
+    }
+
+    .petBlock {
+        height: 248px;
+        border-radius: 40px;
+    }
+
+    .petImage {
+        object-fit: contain;
+        object-position: center bottom;
+    }
+
+    .formSection {
+        padding: 40px 80px;
+        border-radius: 50px;
+    }
+
+    .title {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+}
+
+/* Desktop */
+
+@media screen and (min-width: 1280px) {
+    .page {
+        padding: 32px 32px 80px;
+    }
+
+    .container {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 32px;
+        min-height: 654px;
+    }
+
+    .petBlock {
+        flex: 1;
+        width: 0;
+        height: auto;
+        min-height: 654px;
+        border-radius: 60px;
+    }
+
+    .petImage {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .formSection {
+        flex: 1;
+        width: 0;
+        min-width: 0;
+        padding: 60px 72px;
+        border-radius: 60px;
+    }
+
+    .heading {
+        gap: 8px;
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+}

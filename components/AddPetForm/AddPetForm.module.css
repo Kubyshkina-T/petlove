@@ -1,0 +1,300 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sexGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.sexOption {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff4df;
+    color: #f6b83d;
+    cursor: pointer;
+}
+
+.sexOption:first-of-type {
+    background-color: #fdf0f2;
+    color: #f43f72;
+}
+
+.sexOption:nth-of-type(2) {
+    background-color: #e9f4ff;
+    color: #54adff;
+}
+
+.sexOption:nth-of-type(3) {
+    background-color: #fff4df;
+    color: #f6b83d;
+}
+
+.sexActive {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.sexOption:focus-within {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.sexIcon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.sexOption input,
+.visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 6px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #fff4df;
+}
+
+.pawIcon {
+    width: 34px;
+    height: 34px;
+    color: #f6b83d;
+    fill: currentColor;
+    stroke: none;
+}
+
+.avatarImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photoRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.input {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    border-radius: 30px;
+    background: #fff;
+    color: #262626;
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #f6b83d;
+}
+
+.input::placeholder {
+    color: rgba(38, 38, 38, 0.5);
+}
+
+.photoRow .input {
+    flex: 1;
+}
+
+.uploadHint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 30px;
+    background-color: #fff4df;
+    color: #262626;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.uploadHint svg {
+    width: 16px;
+    height: 16px;
+    color: #f6b83d;
+        fill: currentColor;
+        stroke: none;
+}
+
+.fieldsRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.fieldsRow .input {
+    padding-inline: 8px;
+    font-size: 12px;
+}
+
+.error {
+    margin: 0;
+    color: #e03150;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.back,
+.submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    height: 40px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.back {
+    background-color: #f9f9f9;
+    color: #262626;
+}
+
+.submit {
+    background-color: #f6b83d;
+    color: #fff;
+}
+
+.back:disabled,
+.submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.selectWrapper,
+.dateWrapper {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.petSelect {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.selectIcon,
+.calendarIcon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #262626;
+    fill: none;
+    stroke: currentColor;
+    pointer-events: none;
+}
+
+.dateInput {
+    width: 100%;
+    padding-right: 36px;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+    .form {
+        gap: 14px;
+        margin-top: 24px;
+    }
+
+    .sexOption {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sexIcon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .avatar {
+        width: 86px;
+        height: 86px;
+    }
+
+    .pawIcon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .input,
+    .uploadHint {
+        height: 48px;
+        font-size: 14px;
+    }
+
+    .actions {
+        margin-top: 28px;
+    }
+
+    .back,
+    .submit {
+        min-width: 110px;
+        height: 46px;
+        font-size: 14px;
+    }
+}
