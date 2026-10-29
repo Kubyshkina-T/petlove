@@ -3,7 +3,7 @@ import SplashScreen from "@/components/SplashScreen/SplashScreen";
 
 export default function Home() {
   return (
-    <main>
+    <main className={css.page}>
       <div className={css.container}>
         <SplashScreen />
       </div>

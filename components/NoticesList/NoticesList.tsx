@@ -237,7 +237,15 @@ export default function NoticesList({
 
       <ModalAttention isOpen={isAttentionOpen} onClose={closeAttention} />
 
-      <ModalNotice notice={selectedNotice} onClose={closeNotice} />
+      <ModalNotice
+        notice={selectedNotice}
+        onClose={closeNotice}
+        onFavorite={handleFavorite}
+        isFavorite={
+          selectedNotice ? favoriteIds.includes(selectedNotice._id) : false
+        }
+        isFavoriteLoading={favoritesLoading || pendingFavoriteId !== null}
+      />
     </>
   );
 }

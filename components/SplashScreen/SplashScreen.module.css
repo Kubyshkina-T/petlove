@@ -1,9 +1,10 @@
 .wrapper {
     position: relative;
-    width: 100%;
-    min-height: 100dvh;
-    overflow: hidden;
-    background-color: #f6b83d;
+        width: 100%;
+        height: calc(100dvh - 72px);
+        min-height: 0;
+        overflow: hidden;
+        background-color: #f6b83d;
 }
 
 .image {
@@ -88,6 +89,10 @@
 }
 
 @media screen and (min-width: 1280px) {
+    .wrapper {
+        height: min(800px, calc(100dvh - 98px));
+    }
+
     .image {
         object-position: center;
     }

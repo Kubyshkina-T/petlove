@@ -13,8 +13,12 @@ export type Notice = {
   imgURL: string;
   createdAt: string;
   updatedAt?: string;
-  user: string;
   popularity: number;
+  user?: {
+  _id?: string;
+  email?: string;
+  phone?: string;
+};
 };
 
 export type NoticesResponse = {

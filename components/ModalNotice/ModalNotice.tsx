@@ -10,9 +10,27 @@ import css from "./ModalNotice.module.css";
 type Props = {
   notice: Notice | null;
   onClose: () => void;
+  onFavorite: (notice: Notice) => void | Promise<void>;
+  isFavorite: boolean;
+  isFavoriteLoading: boolean;
 };
 
-export default function ModalNotice({ notice, onClose }: Props) {
+type NoticeWithContact = Notice & {
+  user?: {
+    email?: string;
+    phone?: string;
+  };
+  email?: string;
+  phone?: string;
+};
+
+export default function ModalNotice({
+  notice,
+  onClose,
+  onFavorite,
+  isFavorite,
+  isFavoriteLoading,
+}: Props) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -65,15 +83,21 @@ export default function ModalNotice({ notice, onClose }: Props) {
     return null;
   }
 
-  const birthday = new Date(`${notice.birthday}T00:00:00Z`).toLocaleDateString(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      timeZone: "UTC",
-    },
-  );
+  const birthday = new Date(
+    `${notice.birthday.slice(0, 10)}T00:00:00Z`,
+  ).toLocaleDateString("en-GB", {
+    timeZone: "UTC",
+  });
+
+  const contactHref = notice.user?.email
+    ? `mailto:${notice.user.email}`
+    : notice.user?.phone
+      ? `tel:${notice.user.phone}`
+      : null;
+
+  const category =
+    notice.category.charAt(0).toUpperCase() +
+    notice.category.slice(1).toLowerCase();
 
   return createPortal(
     <div
@@ -110,49 +134,48 @@ export default function ModalNotice({ notice, onClose }: Props) {
               src={notice.imgURL}
               alt={notice.title}
               fill
-              sizes="(max-width: 767px) 100vw, 300px"
+              sizes="150px"
               className={css.image}
             />
+
+            <span className={css.category}>{category}</span>
           </div>
 
           <div className={css.info}>
-            <div className={css.heading}>
-              <h2 id="notice-modal-title" className={css.title}>
-                {notice.title}
-              </h2>
+            <h2 id="notice-modal-title" className={css.title}>
+              {notice.title}
+            </h2>
 
-              <span className={css.popularity}>
-                <svg className={css.star} aria-hidden="true">
-                  <use href="/icons/sprite.svg#icon-star" />
-                </svg>
-                {notice.popularity}
-              </span>
+            <div
+              className={css.popularity}
+              aria-label={`Popularity: ${notice.popularity}`}
+            >
+              <svg className={css.star} aria-hidden="true">
+                <use href="/icons/sprite.svg#icon-star" />
+              </svg>
+
+              <span>{notice.popularity}</span>
             </div>
 
             <dl className={css.details}>
-              <div>
+              <div className={css.detail}>
                 <dt>Name</dt>
                 <dd>{notice.name}</dd>
               </div>
 
-              <div>
+              <div className={css.detail}>
                 <dt>Birthday</dt>
                 <dd>{birthday}</dd>
               </div>
 
-              <div>
+              <div className={css.detail}>
                 <dt>Sex</dt>
                 <dd>{notice.sex}</dd>
               </div>
 
-              <div>
+              <div className={css.detail}>
                 <dt>Species</dt>
                 <dd>{notice.species}</dd>
-              </div>
-
-              <div>
-                <dt>Category</dt>
-                <dd>{notice.category}</dd>
               </div>
             </dl>
 
@@ -165,6 +188,37 @@ export default function ModalNotice({ notice, onClose }: Props) {
                 ? `$${notice.price.toFixed(2)}`
                 : "Free"}
             </p>
+
+            <div className={css.actions}>
+              <button
+                type="button"
+                className={css.favoriteButton}
+                onClick={() => void onFavorite(notice)}
+                disabled={isFavoriteLoading}
+                aria-pressed={isFavorite}
+              >
+                <span>{isFavorite ? "Remove from" : "Add to"}</span>
+
+                <svg
+                  className={`${css.heartIcon} ${
+                    isFavorite ? css.heartActive : ""
+                  }`}
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#icon-heart" />
+                </svg>
+              </button>
+
+              {contactHref ? (
+                <a href={contactHref} className={css.contactButton}>
+                  Contact
+                </a>
+              ) : (
+                <button type="button" className={css.contactButton} disabled>
+                  Contact
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

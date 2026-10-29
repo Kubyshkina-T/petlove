@@ -37,7 +37,6 @@ type RegistrationFormProps = {
 export default function RegistrationForm({ onSubmit }: RegistrationFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [serverError, setServerError] = useState("");
 
   const {
     register,
