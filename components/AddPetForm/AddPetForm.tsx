@@ -6,9 +6,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 
+import { uploadImage } from "@/lib/uploadImage";
 import css from "./AddPetForm.module.css";
 
 const imageRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/;
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const ALLOWED_IMAGE_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+  "image/bmp",
+];
 
 const schema = yup.object({
   name: yup.string().trim().required("Pet's name is required."),
@@ -18,7 +29,7 @@ const schema = yup.object({
   imgURL: yup
     .string()
     .trim()
-    .required("Photo URL is required.")
+    .required("Please upload a photo.")
     .matches(imageRegex, "Enter a valid image URL."),
 
   species: yup.string().required("Select a type of pet."),
@@ -70,11 +81,14 @@ const sexOptions = [
 export default function AddPetForm({ onSubmit, onCancel }: Props) {
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
   const [previewFailed, setPreviewFailed] = useState(false);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+  const [selectedPhotoName, setSelectedPhotoName] = useState("");
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<AddPetValues>({
     resolver: yupResolver(schema),
@@ -100,7 +114,68 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
     name: "imgURL",
   });
 
+  const showPreview =
+    Boolean(imageURL) && imageRegex.test(imageURL.trim()) && !previewFailed;
+
+  const handlePhotoChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (!file || isUploadingPhoto || isSubmitting) return;
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      toast.error("Please select a PNG, JPG, JPEG, GIF, BMP or WebP image.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("Photo size must not exceed 5 MB.");
+      event.target.value = "";
+      return;
+    }
+
+    setIsUploadingPhoto(true);
+    setSelectedPhotoName(file.name);
+    setPreviewFailed(false);
+
+    // Clear the previous URL so an old photo cannot be submitted
+    // if uploading the new photo fails.
+    setValue("imgURL", "", {
+      shouldDirty: true,
+      shouldValidate: false,
+    });
+
+    try {
+      const uploadedURL = await uploadImage(file);
+
+      setValue("imgURL", uploadedURL, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      toast.success("Photo uploaded successfully.");
+    } catch (error) {
+      setSelectedPhotoName("");
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not upload photo. Please try again.",
+      );
+    } finally {
+      setIsUploadingPhoto(false);
+      event.target.value = "";
+    }
+  };
+
   const submitForm = async (data: AddPetValues) => {
+    if (isUploadingPhoto) {
+      toast.error("Please wait until the photo is uploaded.");
+      return;
+    }
+
     try {
       await onSubmit(data);
     } catch (error) {
@@ -111,9 +186,6 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
       );
     }
   };
-
-  const showPreview =
-    Boolean(imageURL) && imageRegex.test(imageURL.trim()) && !previewFailed;
 
   return (
     <form className={css.form} onSubmit={handleSubmit(submitForm)} noValidate>
@@ -165,24 +237,41 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
       <div className={css.photoRow}>
         <input
           className={css.input}
-          type="url"
-          placeholder="Enter URL"
-          aria-label="Pet photo URL"
-          aria-invalid={!!errors.imgURL}
-          {...register("imgURL", {
-            onChange: () => setPreviewFailed(false),
-          })}
+          type="text"
+          value={selectedPhotoName}
+          placeholder="Choose a photo"
+          aria-label="Selected photo"
+          readOnly
         />
 
-        <span className={css.uploadHint}>
-          Upload photo
+        <label className={css.uploadHint} htmlFor="pet-photo-upload">
+          {isUploadingPhoto ? "Uploading..." : "Upload photo"}
+
           <svg aria-hidden="true">
             <use href="/icons/sprite.svg#icon-upload-cloud" />
           </svg>
-        </span>
+        </label>
+
+        <input
+          id="pet-photo-upload"
+          className={css.visuallyHidden}
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"
+          onChange={(event) => void handlePhotoChange(event)}
+          disabled={isUploadingPhoto || isSubmitting}
+          aria-label="Upload pet photo"
+        />
+
+        <input type="hidden" {...register("imgURL")} />
       </div>
 
-      {errors.imgURL && (
+      {isUploadingPhoto && (
+        <p className={css.error} role="status">
+          Uploading photo...
+        </p>
+      )}
+
+      {errors.imgURL && !isUploadingPhoto && (
         <p className={css.error} role="alert">
           {errors.imgURL.message}
         </p>
@@ -281,12 +370,16 @@ export default function AddPetForm({ onSubmit, onCancel }: Props) {
           className={css.back}
           type="button"
           onClick={onCancel}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isUploadingPhoto}
         >
           Back
         </button>
 
-        <button className={css.submit} type="submit" disabled={isSubmitting}>
+        <button
+          className={css.submit}
+          type="submit"
+          disabled={isSubmitting || isUploadingPhoto}
+        >
           {isSubmitting ? "SAVING..." : "Submit"}
         </button>
       </div>

@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 
+import { uploadImage } from "@/lib/uploadImage";
 import css from "./ModalEditUser.module.css";
 
 export type EditUserValues = {
@@ -30,6 +31,16 @@ const avatarRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/;
 
 const phoneRegex = /^\+38\d{10}$/;
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const ALLOWED_IMAGE_TYPES = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+  "image/bmp",
+]);
+
 const schema = yup.object({
   name: yup.string().defined(),
 
@@ -44,7 +55,7 @@ const schema = yup.object({
   }),
 
   avatar: yup.string().defined().matches(avatarRegex, {
-    message: "Enter a valid image URL.",
+    message: "Please upload a valid image.",
     excludeEmptyString: true,
   }),
 });
@@ -56,14 +67,23 @@ export default function ModalEditUser({
   onSave,
 }: Props) {
   const titleId = useId();
+  const uploadId = useId();
 
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadingRef = useRef(false);
+
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [selectedPhotoName, setSelectedPhotoName] = useState("");
+  const [previewFailed, setPreviewFailed] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<EditUserValues>({
     resolver: yupResolver(schema),
@@ -77,7 +97,13 @@ export default function ModalEditUser({
     },
   });
 
-  // Fill the form with the current profile information.
+  const avatarURL = useWatch({
+    control,
+    name: "avatar",
+  });
+
+  const isBusy = isSubmitting || isUploadingAvatar;
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -87,9 +113,11 @@ export default function ModalEditUser({
       phone: user.phone,
       avatar: user.avatar,
     });
+
+    setSelectedPhotoName("");
+    setPreviewFailed(false);
   }, [isOpen, reset, user.name, user.email, user.phone, user.avatar]);
 
-  // Manage focus, Escape and page scrolling.
   useEffect(() => {
     if (!isOpen) return;
 
@@ -97,20 +125,21 @@ export default function ModalEditUser({
     const previousFocus = document.activeElement as HTMLElement | null;
 
     document.body.style.overflow = "hidden";
-
     closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !isSubmitting) {
+      if (event.key === "Escape" && !isBusy) {
         onClose();
       }
 
       if (event.key === "Tab" && dialogRef.current) {
         const elements = Array.from(
           dialogRef.current.querySelectorAll<HTMLElement>(
-            "button:not(:disabled), input:not(:disabled)",
+            'button:not(:disabled), input:not(:disabled):not([type="hidden"]), a[href]',
           ),
-        );
+        ).filter((element) => {
+          return element.getClientRects().length > 0;
+        });
 
         const first = elements[0];
         const last = elements[elements.length - 1];
@@ -134,9 +163,63 @@ export default function ModalEditUser({
       document.removeEventListener("keydown", handleKeyDown);
       previousFocus?.focus();
     };
-  }, [isOpen, isSubmitting, onClose]);
+  }, [isOpen, isBusy, onClose]);
+
+  const handleAvatarChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (!file || uploadingRef.current || isSubmitting) return;
+
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+      toast.error("Please select a PNG, JPG, JPEG, GIF, BMP or WebP image.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size === 0 || file.size > MAX_FILE_SIZE) {
+      toast.error("Photo size must be between 1 byte and 5 MB.");
+      event.target.value = "";
+      return;
+    }
+
+    uploadingRef.current = true;
+    setIsUploadingAvatar(true);
+    setPreviewFailed(false);
+
+    try {
+      const imageUrl = await uploadImage(file);
+
+      setValue("avatar", imageUrl, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setSelectedPhotoName(file.name);
+      toast.success("Photo uploaded successfully.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not upload avatar. Please try again.",
+      );
+    } finally {
+      uploadingRef.current = false;
+      setIsUploadingAvatar(false);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
 
   const submitForm = async (data: EditUserValues) => {
+    if (uploadingRef.current) {
+      toast.error("Please wait until the photo is uploaded.");
+      return;
+    }
+
     try {
       await onSave({
         name: data.name.trim(),
@@ -161,7 +244,7 @@ export default function ModalEditUser({
     <div
       className={css.backdrop}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !isSubmitting) {
+        if (event.target === event.currentTarget && !isBusy) {
           onClose();
         }
       }}
@@ -172,13 +255,14 @@ export default function ModalEditUser({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        aria-busy={isBusy}
       >
         <button
           ref={closeRef}
           type="button"
           className={css.closeButton}
           onClick={onClose}
-          disabled={isSubmitting}
+          disabled={isBusy}
           aria-label="Close modal"
         >
           <svg aria-hidden="true">
@@ -195,6 +279,55 @@ export default function ModalEditUser({
           onSubmit={handleSubmit(submitForm)}
           noValidate
         >
+          <div className={css.avatarSection}>
+            <div className={css.avatarPreview}>
+              {avatarURL && avatarRegex.test(avatarURL) && !previewFailed ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={avatarURL}
+                  src={avatarURL}
+                  alt="Your avatar"
+                  className={css.avatarImage}
+                  onError={() => setPreviewFailed(true)}
+                />
+              ) : (
+                <svg className={css.avatarPlaceholder} aria-hidden="true">
+                  <use href="/icons/sprite.svg#icon-user" />
+                </svg>
+              )}
+            </div>
+
+            <input
+              ref={fileInputRef}
+              id={uploadId}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"
+              className={css.fileInput}
+              onChange={(event) => void handleAvatarChange(event)}
+              disabled={isBusy}
+              aria-label="Choose profile photo"
+            />
+
+            <button
+              type="button"
+              className={css.uploadButton}
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isBusy}
+            >
+              {isUploadingAvatar
+                ? "Uploading..."
+                : selectedPhotoName || "Upload photo"}
+            </button>
+
+            <input type="hidden" {...register("avatar")} />
+
+            {errors.avatar && (
+              <span className={css.error} role="alert">
+                {errors.avatar.message}
+              </span>
+            )}
+          </div>
+
           <label className={css.field}>
             <span>Name</span>
             <input
@@ -241,27 +374,12 @@ export default function ModalEditUser({
             )}
           </label>
 
-          <label className={css.field}>
-            <span>Avatar URL</span>
-            <input
-              {...register("avatar")}
-              type="url"
-              placeholder="https://example.com/photo.jpg"
-              aria-invalid={!!errors.avatar}
-            />
-            {errors.avatar && (
-              <span className={css.error} role="alert">
-                {errors.avatar.message}
-              </span>
-            )}
-          </label>
-
-          <button
-            type="submit"
-            className={css.saveButton}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "SAVING..." : "SAVE CHANGES"}
+          <button type="submit" className={css.saveButton} disabled={isBusy}>
+            {isSubmitting
+              ? "SAVING..."
+              : isUploadingAvatar
+                ? "UPLOADING..."
+                : "SAVE CHANGES"}
           </button>
         </form>
       </div>

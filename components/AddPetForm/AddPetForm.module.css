@@ -147,6 +147,7 @@
     color: #262626;
     font-size: 11px;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .uploadHint svg {
