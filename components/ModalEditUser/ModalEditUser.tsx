@@ -113,9 +113,6 @@ export default function ModalEditUser({
       phone: user.phone,
       avatar: user.avatar,
     });
-
-    setSelectedPhotoName("");
-    setPreviewFailed(false);
   }, [isOpen, reset, user.name, user.email, user.phone, user.avatar]);
 
   useEffect(() => {
@@ -276,7 +273,9 @@ export default function ModalEditUser({
 
         <form
           className={css.form}
-          onSubmit={handleSubmit(submitForm)}
+          onSubmit={(event) => {
+            void handleSubmit(submitForm)(event);
+          }}
           noValidate
         >
           <div className={css.avatarSection}>

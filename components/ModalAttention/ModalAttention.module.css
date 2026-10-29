@@ -1,7 +1,8 @@
+
 .backdrop {
     position: fixed;
     inset: 0;
-    z-index: 1000;
+    z-index: 1100;
 
     display: flex;
     align-items: center;
@@ -13,14 +14,17 @@
 
 .modal {
     position: relative;
+
     width: 100%;
-    max-width: 466px;
+    max-width: 335px;
     max-height: calc(100dvh - 40px);
     overflow-y: auto;
 
-    padding: 60px 24px 40px;
+    padding: 60px 20px 40px;
+
     border-radius: 30px;
     background-color: #fff;
+
     text-align: center;
 }
 
@@ -36,13 +40,15 @@
     width: 24px;
     height: 24px;
     padding: 0;
+
     border: none;
     background: transparent;
     color: #262626;
+
     cursor: pointer;
 }
 
-.closeIcon {
+.closeButton svg {
     width: 24px;
     height: 24px;
     fill: none;
@@ -51,89 +57,129 @@
 
 .title {
     margin: 0;
+
     color: #262626;
     font-size: 24px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 28px;
+    letter-spacing: -0.03em;
 }
 
 .description {
-    margin: 20px 0 0;
+    margin: 24px 0 0;
+
     color: #262626;
     font-size: 14px;
-    line-height: 1.5;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.02em;
 }
 
 .actions {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
+
     margin-top: 28px;
 }
 
-.login,
-.register {
-    display: flex;
+.loginButton,
+.registerButton {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    min-height: 48px;
-    padding: 12px 20px;
+    flex: 1;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px;
+
     border-radius: 30px;
 
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
+    line-height: 18px;
+    letter-spacing: -0.03em;
     text-decoration: none;
+    white-space: nowrap;
 
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
 }
 
-.login {
+.loginButton {
     background-color: #f6b83d;
     color: #fff;
 }
 
-.login:hover,
-.login:focus-visible {
-    background-color: #e9a52a;
-}
-
-.register {
+.registerButton {
     background-color: #fff4df;
     color: #f6b83d;
 }
 
-.register:hover,
-.register:focus-visible {
-    background-color: #fbe5ba;
+.loginButton:hover {
+    background-color: #e9a52a;
 }
 
-.closeButton:focus-visible {
-    outline: 2px solid #f6b83d;
-    outline-offset: 4px;
+.registerButton:hover {
+    background-color: #fbe2ad;
 }
+
+.closeButton:focus-visible,
+.loginButton:focus-visible,
+.registerButton:focus-visible {
+    outline: 2px solid #262626;
+    outline-offset: 3px;
+}
+ .dogIcon {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+     width: 80px;
+     height: 80px;
+     margin: 0 auto 20px;
+
+     border-radius: 50%;
+     background-color: #fff4df;
+
+     font-size: 40px;
+     line-height: 1;
+ }
 
 @media screen and (min-width: 768px) {
     .modal {
-        padding: 60px;
-        border-radius: 60px;
+        max-width: 480px;
+        padding: 80px 40px 60px;
+        border-radius: 40px;
+    }
+
+    .closeButton {
+        top: 24px;
+        right: 24px;
     }
 
     .title {
         font-size: 36px;
+        line-height: 40px;
     }
 
     .description {
+        margin-top: 32px;
         font-size: 16px;
+        line-height: 24px;
     }
 
     .actions {
-        flex-direction: row;
-        justify-content: center;
+        gap: 12px;
+        margin-top: 36px;
     }
 
-    .login,
-    .register {
-        min-width: 140px;
+    .loginButton,
+    .registerButton {
+        min-height: 48px;
+        padding: 12px 20px;
+        font-size: 16px;
+        line-height: 20px;
     }
 }
