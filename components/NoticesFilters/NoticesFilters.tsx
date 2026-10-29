@@ -182,7 +182,7 @@ export default function NoticesFilters() {
         <div className={css.searchWrapper}>
           <input
             className={css.control}
-            type="search"
+            type="text"
             placeholder="Search"
             aria-label="Search pets"
             value={keyword}

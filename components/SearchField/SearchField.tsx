@@ -36,7 +36,7 @@ export default function SearchField({
   return (
     <form className={css.form} onSubmit={handleSearch} role="search">
       <input
-        type="search"
+        type="text"
         value={value}
         onChange={(event) => setValue(event.target.value)}
         placeholder="Search"
